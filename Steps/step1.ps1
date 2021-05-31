@@ -28,9 +28,9 @@ else {
     throw "Installation failed (Error: $ExitCode)."
 }
 
-$InstallVideo = (Read-Host "This script will also install the Parsec GPU Updater tool, unless you already have drivers, please type y (y/n)").ToLower() -eq "y"
+$Video = (Read-Host "This script will also install the Parsec GPU Updater tool, unless you already have drivers, please type y (y/n)").ToLower() -eq "y"
 
-        if($InstallVideo) {
+        if($Video) {
             $Shell = New-Object -comObject WScript.Shell
             $Shortcut = $Shell.CreateShortcut("$Home\Desktop\Continue.lnk")
             $Shortcut.TargetPath = "powershell.exe"
@@ -41,9 +41,9 @@ $InstallVideo = (Read-Host "This script will also install the Parsec GPU Updater
             & $PSScriptRoot\GPUUpdaterTool.ps1 
 }
 
-$InstallAudio = (Read-Host "You need audio drivers, do you want VBCable? (y/n)").ToLower() -eq "y"
+$Audio = (Read-Host "You need audio drivers, do you want VBCable? (y/n)").ToLower() -eq "y"
 
-if($InstallAudio) { 
+if($Audio) { 
 GetFile "https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack43.zip" "$WorkDir\vbcable.zip" "VBCABLE" 
 Write-Host "Installing VBCABLE..."
 Expand-Archive -Path "$WorkDir\vbcable.zip" -DestinationPath "$WorkDir\vbcable"
