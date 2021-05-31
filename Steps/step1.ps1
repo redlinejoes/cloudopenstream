@@ -11,7 +11,7 @@ Function GetFile([string]$Url, [string]$Path, [string]$Name) {
     }
 }
 
-GetFile "https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe" "$WorkDir\redist.exe" "Visual C++ Redist (2010)"
+GetFile "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe" "$WorkDir\redist.exe" "Visual C++ Redist (2010)"
 Write-Host "Installing Visual Studio Redist"
 $ExitCode = (Start-Process -FilePath "$WorkDir\redist.exe" -ArgumentList "/install","/quiet","/norestart" -NoNewWindow -Wait -Passthru).ExitCode
 if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
