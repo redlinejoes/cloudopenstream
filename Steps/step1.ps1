@@ -11,8 +11,8 @@ Function GetFile([string]$Url, [string]$Path, [string]$Name) {
     }
 }
 
-GetFile "https://aka.ms/vs/16/release/vc_redist.x64.exe" "$WorkDir\redist.exe" "Visual C++ Redist"
-Write-Host "Installing Visual C++ Redist..."
+GetFile "https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe" "$WorkDir\redist.exe" "Visual C++ Redist (2010)"
+Write-Host "Installing Visual Studio Redist"
 $ExitCode = (Start-Process -FilePath "$WorkDir\redist.exe" -ArgumentList "/install","/quiet","/norestart" -NoNewWindow -Wait -Passthru).ExitCode
 if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
 elseif($ExitCode -eq 1638) { Write-Host "Newer version already installed." -ForegroundColor Green }
@@ -34,7 +34,7 @@ $InstallVideo = (Read-Host "This script will also install the Parsec GPU Updater
             $Shell = New-Object -comObject WScript.Shell
             $Shortcut = $Shell.CreateShortcut("$Home\Desktop\Continue.lnk")
             $Shortcut.TargetPath = "powershell.exe"
-            $Shortcut.Arguments = "-Command `"Set-ExecutionPolicy Unrestricted; & '$PSScriptRoot\..\Setup.ps1'`" -RebootSkip"
+            $Shortcut.Arguments = "-Command `"Set-ExecutionPolicy Unrestricted; & '$PSScriptRoot\..\starthere.ps1'`" -RebootSkip"
             $Shortcut.Save()
             GetFile "https://raw.githubusercontent.com/parsec-cloud/Cloud-GPU-Updater/master/GPUUpdaterTool.ps1" "$PSScriptRoot\GPUUpdaterTool.ps1" "Cloud GPU Updater" 
             Write-Host "In case of a restart, please use the continue shortcut on your desktop, make sure to choose no to video" -ForegroundColor Red
