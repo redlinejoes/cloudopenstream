@@ -23,7 +23,6 @@ Write-HostCenter 'Cloudopenstream'
 Write-HostCenter 'A PowerShell script that automatically prepares a cloud Windows Server for use on Moonlight using free, open-source software.'
 Write-Host ""
 
-
     Write-Host "Your machine will restart at least once during this setup." -ForegroundColor Red
     Write-Host ""
     Write-Host "Step 1 - Installing requirements" -ForegroundColor Yellow
