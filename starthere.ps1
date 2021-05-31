@@ -16,7 +16,7 @@ Write-Host "Thank you for being an Administrator, the script will proceed" }
    Pause
 }
 
-function Write-HostCenter { param($Message) Write-Host ("{0}{1}" -f (' ' * (([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 3) - [Math]::Floor($Message.Length / 2)))), $Message) }
+function Write-HostCenter { param($Message) Write-Host ("{0}{1}" -f (' ' * (([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 3) - [Math]::Floor($Message.Length / 3)))), $Message) }
 
 Clear-Host
 Write-HostCenter 'CloudOpenstream'
