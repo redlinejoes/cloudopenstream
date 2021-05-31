@@ -48,6 +48,7 @@ GetFile "https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack43.zip"
 Write-Host "Installing VBCABLE..."
 Expand-Archive -Path "$WorkDir\vbcable.zip" -DestinationPath "$WorkDir\vbcable"
 Start-Process -FilePath "$WorkDir\vbcable\VBCABLE_Setup_x64.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
+
 GetFile "https://drive.google.com/uc?export=download&id=18JS6ZPcFS4lU3ip0mMgrkkSf-fDdr0vN" "$WorkDir\razer.zip" "Razer Surround"
 Write-Host Installing "Razer Surround"
 Expand-Archive -Path "$WorkDir\razer.zip" -DestinationPath "$WorkDir\razer"
