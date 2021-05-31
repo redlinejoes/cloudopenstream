@@ -50,9 +50,14 @@ For example, take a look at what Acceleration3 (the creator of the cloudgamestre
 https://www.reddit.com/r/cloudygamer/comments/i3pkpu/guide_enabling_nvidia_gamestream_on_a_cloud/
 
 # How to start the script
-You just need to install the newest release here: 
-https://github.com/rionthedeveloper/cloudopenstream/releases
-
-When you download it, extract the ZIP and you should see a folder with the name of the archive. Open it. Then just right click on the Powershell script called `setup.ps1`, the GPU Updater is like a step, it will automatically prompt you as you are using the script. 
+With this modified version of Parsec's tool command, you can start this script directly in Powershell: 
+```
+`[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
+$DownloadScript = "https://github.com/rionthedeveloper/cloudopenstream/archive/refs/heads/main.zip"  
+$ArchivePath = "$ENV:UserProfile\Downloads\cloudopenstream"  
+(New-Object System.Net.WebClient).DownloadFile($DownloadScript, "$ArchivePath.zip")  
+Expand-Archive "$ArchivePath.zip" -DestinationPath $ArchivePath -Force  
+CD $ArchivePath\cloudopenstream-main | powershell.exe .\starthere.ps1`
+```
 
 Open-stream, Accleration3, or pretty much anything/one in this script or referenced is not related to the script. This is just a friendly way to get cloud gaming with Open-stream, which is an amazing project I've poured hours into using. If your `insert thing here` is included in the script, but you don't want it to be, I can remove it. Your `insert thing here` will be removed when the next version is released. 
