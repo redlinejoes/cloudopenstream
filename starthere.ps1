@@ -16,12 +16,11 @@ Write-Host "Thank you for being an Administrator, the script will proceed" }
    Pause
 }
 
-function Write-HostCenter { param($Message) Write-Host ("{0}{1}" -f (' ' * (([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 3) - [Math]::Floor($Message.Length / 2)))), $Message) }
+function Write-HostCenter { param($Message) Write-Host ("{0}{1}" -f (' ' * (([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 2) - [Math]::Floor($Message.Length / 2)))), $Message) }
 
 Clear-Host
 Write-HostCenter 'CloudOpenstream'
 Write-HostCenter 'A PowerShell script that automatically prepares a cloud Windows Server for use on Moonlight using free, open-source software.'
-Write-HostCenter 'A project by Rion, who is not a developer'
 Write-Host ""
 
 
