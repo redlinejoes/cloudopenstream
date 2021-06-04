@@ -1,1 +1,15 @@
-This folder is a folder for all the files the script installs, if something was not installed right, execute the application again. If you encounter an errors, use the log avalible in the script root. Get any errors? Make sure it isn't from the GPU updater script. The log will explain these errors in detail. 
+This folder is a folder for all the files the script installs, if something was not installed right, execute the install again in this folder.
+
+Get any errors? Make sure it isn't from the GPU updater script. The log will explain these errors in detail. 
+
+GPU not installed?
+Please consult your cloud provider's documentation for help, or contact them directly. 
+
+Open-stream not working? 
+Report to the developers through the Moonlight Discord, state this is the beta version, do not state you used this script. 
+
+Is there an alternative to Open-stream?
+Yes, Parsec is good, but try to troubleshoot Open-stream first. 
+
+Something wrong with the script?
+Report an issue on it's GitHub page. 
