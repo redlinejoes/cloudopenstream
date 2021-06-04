@@ -39,10 +39,8 @@ if($osType.ProductType -eq 3) {
 Write-Host "Turning on mouse acceleration..."
 Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
 
-Wriet-Host "Turning on Memory Compression..."
+Write-Host "Turning on Memory Compression..."
 Enable-MMAgent -MemoryCompression
 
 Write-Host "Disabling Start Menu Logout"
-Set-ItemProperty -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null
-Else {
-    New-ItemProperty -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null }
+$StartMenuLogout = Set-ItemProperty -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null
