@@ -37,12 +37,12 @@ if($osType.ProductType -eq 3) {
 }
 
 Write-Host ""
-SetTime {
-    $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
-    Set-TimeZone –Name “$timezone”
-} else {
-    Set-TimeZone -Name "Coordinated Universal Time"
-}
+    function SetTime {
+        $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
+        Set-TimeZone –Name “$timezone”
+    } else {
+        Set-TimeZone -Name "Coordinated Universal Time"
+    }
 
 Write-Host ""
 Write-Host "Turning on enchanced pointer precision..."
