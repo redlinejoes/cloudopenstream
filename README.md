@@ -52,8 +52,9 @@ With this modified version of Parsec's tool command, you can start this script d
 $DownloadScript = "https://github.com/rionthedeveloper/cloudopenstream/archive/refs/heads/main.zip"  
 $ArchivePath = "$ENV:UserProfile\Downloads\cloudopenstream"  
 (New-Object System.Net.WebClient).DownloadFile($DownloadScript, "$ArchivePath.zip")  
-Expand-Archive "$ArchivePath.zip" -DestinationPath $ArchivePath -Force  
-CD $ArchivePath\cloudopenstream-main | powershell.exe .\starthere.ps1
+Expand-Archive "$ArchivePath.zip" -DestinationPath $ArchivePath -Force
 ```
+
+Then go to downloads and click "starthere.ps1"
 
 Open-stream, Accleration3, or pretty much anything/one in this script or referenced is not related to the script. This is just a friendly way to get cloud gaming with Open-stream, which is an amazing project I've poured hours into using. If your `insert thing here` is included in the script, but you don't want it to be, I can remove it. Your `insert thing here` will be removed when the next version is released. 
