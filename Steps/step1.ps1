@@ -11,23 +11,6 @@ Function GetFile([string]$Url, [string]$Path, [string]$Name) {
     }
 }
 
-GetFile "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe" "$WorkDir\redist.exe" "Visual C++ Redist (2010)"
-Write-Host "Installing Visual Studio Redist"
-$ExitCode = (Start-Process -FilePath "$WorkDir\redist.exe" -ArgumentList "/install","/quiet","/norestart" -NoNewWindow -Wait -Passthru).ExitCode
-if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
-elseif($ExitCode -eq 1638) { Write-Host "Newer version already installed." -ForegroundColor Green }
-else { 
-    throw "Installation failed (Error: $ExitCode)."
-}
-
-GetFile "http://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US" "$WorkDir\firefox.exe" "Firefox" 
-Write-Host "Installing Firefox, make it your default browser!"
-$ExitCode = (Start-Process -FilePath "$WorkDir\firefox.exe" -ArgumentList "-s" -NoNewWindow -Wait -Passthru).ExitCode
-if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
-else { 
-    throw "Installation failed (Error: $ExitCode)."
-}
-
 $Video = (Read-Host "This script will also install the Parsec GPU Updater tool, unless you already have drivers, please type y (y/n)").ToLower() -eq "y"
 
 if($Video) {
@@ -52,7 +35,7 @@ Start-Process -FilePath "$WorkDir\vbcable\VBCABLE_Setup_x64.exe" -ArgumentList "
 $Razer = (Read-Host "Do you want to install Razer Surround? (y/n)").ToLower() -eq "y"
 
 if($Razer) {
-GetFile "https://drive.google.com/uc?export=download&id=18JS6ZPcFS4lU3ip0mMgrkkSf-fDdr0vN" "$WorkDir\razer.zip" "Razer Surround"
+GetFile "https://cloudopenstream.s3.us-west-2.amazonaws.com/RazerSurroundInstaller2.0.29.20.zip" "$WorkDir\razer.zip" "Razer Surround"
 Write-Host Installing "Razer Surround"
 Expand-Archive -Path "$WorkDir\razer.zip" -DestinationPath "$WorkDir\razer"
 Start-Process -FilePath "$WorkDir\razer\$TEMP\RazerSurroundInstaller\RzUpdateManager.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
@@ -61,3 +44,20 @@ Start-Process -FilePath "$WorkDir\razer\$TEMP\RazerSurroundInstaller\RzUpdateMan
 GetFile "https://cloudopenstream.s3-us-west-2.amazonaws.com/installer_05_28.exe" "$WorkDir\openstream.exe" "Open-stream" 
 Write-Host "Installing Open-stream..."
 Start-Process -FilePath "$WorkDir\openstream.exe"
+
+GetFile "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe" "$WorkDir\redist.exe" "Visual C++ Redist (2010)"
+Write-Host "Installing Visual Studio Redist"
+$ExitCode = (Start-Process -FilePath "$WorkDir\redist.exe" -ArgumentList "/install","/quiet","/norestart" -NoNewWindow -Wait -Passthru).ExitCode
+if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
+elseif($ExitCode -eq 1638) { Write-Host "Newer version already installed." -ForegroundColor Green }
+else { 
+    throw "Installation failed (Error: $ExitCode)."
+}
+
+GetFile "http://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US" "$WorkDir\firefox.exe" "Firefox" 
+Write-Host "Installing Firefox, make it your default browser!"
+$ExitCode = (Start-Process -FilePath "$WorkDir\firefox.exe" -ArgumentList "-s" -NoNewWindow -Wait -Passthru).ExitCode
+if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
+else { 
+    throw "Installation failed (Error: $ExitCode)."
+}

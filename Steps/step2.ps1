@@ -36,11 +36,9 @@ if($osType.ProductType -eq 3) {
     Set-ItemProperty $RegPath "DefaultUsername" -Value "Administrator" -type String | Out-Null
 }
 
-Write-Host "Turning on mouse acceleration..."
+Write-Host "Turning on enchanced pointer precision..."
 Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
 
 Write-Host "Turning on Memory Compression..."
 Enable-MMAgent -MemoryCompression
 
-Write-Host "Disabling Start Menu Logout"
-$StartMenuLogout = Set-ItemProperty -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null
