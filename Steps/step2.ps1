@@ -40,7 +40,7 @@ Write-Host ""
     function SetTime {
         $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
         Set-TimeZone –Name “$timezone”
-    } else {
+    }else {
         Set-TimeZone -Name "Coordinated Universal Time"
     }
 
