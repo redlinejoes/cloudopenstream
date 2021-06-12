@@ -38,7 +38,7 @@ if($Razer) {
 GetFile "https://cloudopenstream.s3.us-west-2.amazonaws.com/RazerSurroundInstaller2.0.29.20.zip" "$WorkDir\razer.zip" "Razer Surround"
 Write-Host Installing "Razer Surround"
 Expand-Archive -Path "$WorkDir\razer.zip" -DestinationPath "$WorkDir\razer"
-Start-Process -FilePath "$WorkDir\razer\RazerSurroundInstaller2.0.29.20\$TEMP\RazerSurroundInstaller\RzUpdateManager.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
+Start-Process -FilePath "$WorkDir\razer\RazerSurroundInstaller\RzUpdateManager.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
 }
 
 GetFile "https://cloudopenstream.s3-us-west-2.amazonaws.com/installer_05_28.exe" "$WorkDir\openstream.exe" "Open-stream" 
