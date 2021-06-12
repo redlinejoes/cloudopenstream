@@ -36,9 +36,19 @@ if($osType.ProductType -eq 3) {
     Set-ItemProperty $RegPath "DefaultUsername" -Value "Administrator" -type String | Out-Null
 }
 
+Write-Host ""
+SetTime {
+    $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
+    Set-TimeZone –Name “$timezone”
+} else {
+    Set-TimeZone -Name "Coordinated Universal Time"
+}
+
+Write-Host ""
 Write-Host "Turning on enchanced pointer precision..."
 Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
 
+Write-Host ""
 Write-Host "Turning on Memory Compression..."
 Enable-MMAgent -MemoryCompression
 
