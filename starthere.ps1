@@ -23,11 +23,11 @@ Clear-Host
 Write-HostCenter 'Cloudopenstream'
 Write-HostCenter 'Starting up...'
 Write-Host ""
-function Start {
+
+if(!$RebootSkip) {
     Write-Host "Your machine will restart at least once during this setup." -ForegroundColor Red
     Write-Host ""
     Write-Host "Step 1 - Installing requirements" -ForegroundColor Yellow
-    & $PSScriptRoot\Steps\step1.ps1 -Main
 } else {
 if(Get-ScheduledTask | Where-Object {$_.TaskName -like "Continue" }) {
   Unregister-ScheduledTask -TaskName "Continue" -Confirm:$false
