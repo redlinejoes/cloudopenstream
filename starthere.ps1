@@ -1,3 +1,5 @@
+Param([Parameter(Mandatory=$false)] [Switch]$RebootSkip)
+
 Start-Transcript -Path "$PSScriptRoot\Log.txt"
 function Elevated {
     $id = [System.Security.Principal.WindowsIdentity]::GetCurrent()
@@ -21,11 +23,17 @@ Clear-Host
 Write-HostCenter 'Cloudopenstream'
 Write-HostCenter 'Starting up...'
 Write-Host ""
-
+function Start {
     Write-Host "Your machine will restart at least once during this setup." -ForegroundColor Red
     Write-Host ""
     Write-Host "Step 1 - Installing requirements" -ForegroundColor Yellow
     & $PSScriptRoot\Steps\step1.ps1 -Main
+} else {
+if(Get-ScheduledTask | Where-Object {$_.TaskName -like "Continue" }) {
+  Unregister-ScheduledTask -TaskName "Continue" -Confirm:$false
+}
+Write-Host "The script will now continue from where it left off."
+}
 	
     Write-Host ""
     Write-Host "Step 2 - Applying fixes" -ForegroundColor Yellow
