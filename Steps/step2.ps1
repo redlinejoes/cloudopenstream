@@ -9,6 +9,7 @@ Write-Host ""
 if($osType.ProductType -eq 3) {
     Write-Host "Installing Quality Windows Audio/Video Experience"
     Install-WindowsFeature -Name QWAVE | Out-Null
+    Enable-MMAgent -MemoryCompression
 }   
 
 Write-Host ""
@@ -37,7 +38,7 @@ if($osType.ProductType -eq 3) {
 }
 
 Write-Host ""
-    function SetTime {
+    function Set-TimeZone {
         $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
         Set-TimeZone –Name “$timezone” }
         else {
@@ -66,8 +67,3 @@ Write-Host ""
 Write-Host ""
 Write-Host "Turning on enchanced pointer precision..."
 Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
-
-Write-Host ""
-Write-Host "Turning on Memory Compression..."
-Enable-MMAgent -MemoryCompression
-
