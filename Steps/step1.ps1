@@ -60,5 +60,4 @@ if($Video) {
   $principal = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators" -RunLevel Highest
   Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "Continue" -Description "Openstream continue setup" | Out-Null
   & $PSScriptRoot\GPUUpdaterTool.ps1
-  Restart-Computer -Force
 }
