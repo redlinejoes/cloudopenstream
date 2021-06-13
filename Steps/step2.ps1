@@ -39,9 +39,28 @@ if($osType.ProductType -eq 3) {
 Write-Host ""
     function SetTime {
         $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
-        Set-TimeZone –Name “$timezone”
-    }else {
+        Set-TimeZone –Name “$timezone” }
+        else {
         Set-TimeZone -Name "Coordinated Universal Time"
+    }
+
+    ChnageWallpaper = (Read-Host 'Would you like to change the wallpaper to the Windows 10 one?').ToLower() -eq "y" 
+
+    if($ChangeWallpaper) {
+        GetFile "https://cloudopenstream.s3.us-west-2.amazonaws.com/img0_3840x2160.png" "C:\Users\Administrator\Documents\wallpaper.png" "Wallpaper"
+        New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies" -Name "System" | Out-Null
+        Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name Wallpaper -value "C:\Users\Administrator\Documents\wallpaper.png" | Out-Null
+    }
+    else {
+        New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name Wallpaper -PropertyType String -value "C:\Users\Administrator\Documents\wallpaper.png" | Out-Null
+    }
+    
+    if($ChangeWallpaper) {
+        Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name WallpaperStyle -value 2 | Out-Null
+    }
+    else {
+        New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name WallpaperStyle -PropertyType String -value 2 | Out-Null
+        Stop-Process -ProcessName Explorer
     }
 
 Write-Host ""

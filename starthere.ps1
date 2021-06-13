@@ -1,5 +1,5 @@
 Start-Transcript -Path "$PSScriptRoot\Log.txt"
-function Check-IsElevated {
+function Elevated {
     $id = [System.Security.Principal.WindowsIdentity]::GetCurrent()
     $p = New-Object System.Security.Principal.WindowsPrincipal($id)
     if ($p.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator))
@@ -8,20 +8,20 @@ function Check-IsElevated {
    { Write-Output $false }   
  }
 
-if (Check-IsElevated) {
-Write-Host "Thank you for being an Administrator, the script will proceed" }
+if($Elevated -eq "$true") { 
+Write-Host "Thank you for being an Administrator, the script will proceed" -ForegroundColor Green }
  else {
-   Write-Host "This script wasn't executed as an Administrator, make sure to use the built-in Administrator user" 
+   Write-Host "This script wasn't executed as an Administrator, make sure to use the built-in Administrator user" -ForegroundColor Red
    Stop-Transcript
    Pause
 }
 
 function Write-HostCenter { param($Message) Write-Host ("{0}{1}" -f (' ' * (([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 2) - [Math]::Floor($Message.Length / 2)))), $Message) }
 
-clear
+Clear-Host
 
 Write-HostCenter 'Cloudopenstream'
-Write-HostCenter 'A PowerShell script'
+Write-HostCenter 'Starting up...'
 Write-Host ""
 
     Write-Host "Your machine will restart at least once during this setup." -ForegroundColor Red

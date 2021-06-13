@@ -15,18 +15,6 @@ Set-Itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A5
 Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name IsInstalled -Value 0 -Force | Out-Null
 Stop-Process -Name Explorer -Force
 
-$Video = (Read-Host "This script will also install the Parsec GPU Updater tool, unless you already have drivers, please type y (y/n)").ToLower() -eq "y"
-
-if($Video) {
-  $Shell = New-Object -comObject WScript.Shell
-  $Shortcut = $Shell.CreateShortcut("$Home\Desktop\Continue.lnk")
-  $Shortcut.TargetPath = "powershell.exe"
-  $Shortcut.Arguments = "-Command `"Set-ExecutionPolicy Unrestricted; & '$PSScriptRoot\..\starthere.ps1'`" -RebootSkip"
-  $Shortcut.Save()
-  GetFile "https://raw.githubusercontent.com/parsec-cloud/Cloud-GPU-Updater/master/GPUUpdaterTool.ps1" "$PSScriptRoot\GPUUpdaterTool.ps1" "Cloud GPU Updater" 
-  & $PSScriptRoot\GPUUpdaterTool.ps1 
-}
-
 $Audio = (Read-Host "You need audio drivers, do you want VBCable? (y/n)").ToLower() -eq "y"
 
 if($Audio) { 
@@ -35,10 +23,6 @@ Write-Host "Installing VBCABLE..."
 Expand-Archive -Path "$WorkDir\vbcable.zip" -DestinationPath "$WorkDir\vbcable"
 Start-Process -FilePath "$WorkDir\vbcable\VBCABLE_Setup_x64.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
 }
-
-GetFile "https://cloudopenstream.s3-us-west-2.amazonaws.com/installer_05_28.exe" "$WorkDir\openstream.exe" "Open-stream" 
-Write-Host "Installing Open-stream..."
-Start-Process -FilePath "$WorkDir\openstream.exe"
 
 GetFile "https://aka.ms/vs/16/release/vc_redist.x64.exe" "Visual C++ Redist (2015-19)"
 Write-Host "Installing Visual Studio Redist"
@@ -55,4 +39,21 @@ $ExitCode = (Start-Process -FilePath "$WorkDir\firefox.exe" -ArgumentList "-s" -
 if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
 else { 
     throw "Installation failed (Error: $ExitCode)."
+}
+
+GetFile "https://cloudopenstream.s3-us-west-2.amazonaws.com/installer_05_28.exe" "$WorkDir\openstream.exe" "Open-stream" 
+Write-Host "Installing Open-stream..."
+Start-Process -FilePath "$WorkDir\openstream.exe"
+
+$Video = (Read-Host "This script will also install the Parsec GPU Updater tool, unless you already have drivers, please type y (y/n)").ToLower() -eq "y"
+
+if($Video) {
+  $Shell = New-Object -comObject WScript.Shell
+  $Shortcut = $Shell.CreateShortcut("$Home\Desktop\Continue.lnk")
+  $Shortcut.TargetPath = "powershell.exe"
+  $Shortcut.Arguments = "-Command `"Set-ExecutionPolicy Unrestricted; & '$PSScriptRoot\Steps\step2.ps1'`" -RebootSkip"
+  $Shortcut.Save()
+  GetFile "https://raw.githubusercontent.com/parsec-cloud/Cloud-GPU-Updater/master/GPUUpdaterTool.ps1" "$PSScriptRoot\GPUUpdaterTool.ps1" "Cloud GPU Updater" 
+  & $PSScriptRoot\GPUUpdaterTool.ps1
+  Restart-Computer -Force
 }
