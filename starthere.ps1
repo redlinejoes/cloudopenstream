@@ -8,10 +8,8 @@ function Elevated {
    { Write-Output $false }   
  }
 
-if($Elevated -eq "$true") { 
-Write-Host "Thank you for being an Administrator, the script will proceed" -ForegroundColor Green }
- else {
-   Write-Host "This script wasn't executed as an Administrator, make sure to use the built-in Administrator user" -ForegroundColor Red
+ if (-not(Elevated))
+ { throw "Please run this script as an administrator" 
    Stop-Transcript
    Pause
 }

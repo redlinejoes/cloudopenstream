@@ -24,7 +24,7 @@ Expand-Archive -Path "$WorkDir\vbcable.zip" -DestinationPath "$WorkDir\vbcable"
 Start-Process -FilePath "$WorkDir\vbcable\VBCABLE_Setup_x64.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
 }
 
-GetFile "https://aka.ms/vs/16/release/vc_redist.x64.exe" "Visual C++ Redist (2015-19)"
+GetFile "https://aka.ms/vs/16/release/vc_redist.x64.exe" "$WorkDir\redist.exe" "Visual C++ Redist (2015-19)"
 Write-Host "Installing Visual Studio Redist"
 $ExitCode = (Start-Process -FilePath "$WorkDir\redist.exe" -ArgumentList "/install","/quiet","/norestart" -NoNewWindow -Wait -Passthru).ExitCode
 if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
