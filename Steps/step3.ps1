@@ -30,7 +30,7 @@ else {
 }
 
 
-$InstallPlaynite = (Read-Host "Would you like to download and install Playnite?(y/n)").ToLower() -eq "y"
+$InstallPlaynite = (Read-Host "Would you like to download and install Playnite? (y/n)").ToLower() -eq "y"
 
 if($InstallPlaynite) {
     GetFile "https://github.com/JosefNemec/Playnite/releases/download/8.11/Playnite811.exe" "$WorkDir\Playnite.exe" "Playnite"
@@ -42,7 +42,7 @@ else {
     Write-Host "Skipping Playnite..."
 }
 
-$Install7Zip = (Read-Host "Would you like to download and install 7Zip?(y/n)").ToLower() -eq "y"
+$Install7Zip = (Read-Host "Would you like to download and install 7Zip? (y/n)").ToLower() -eq "y"
 
 if($Install7Zip) {
     GetFile "https://www.7-zip.org/a/7z1900-x64.exe" "$WorkDir\7zip.exe" "7Zip"
@@ -58,7 +58,7 @@ $Afterburner = (Read-Host "Do you want to install MSI Afterburner? (y/n)").ToLow
 
 if($Afterburner) { 
 GetFile "https://cloudopenstream.s3.us-west-2.amazonaws.com/MSIAfterburnerSetup.zip" "$WorkDir\afterburner.zip" "MSI Afterburner" 
-Write-Host "Installing VBCABLE..."
+Write-Host "Installing Afterburner..."
 Expand-Archive -Path "$WorkDir\afterburner.zip" -DestinationPath "$WorkDir\afterburner"
-Start-Process -FilePath "$WorkDir\MSIAfterburnerSetup464Beta3.exe.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
+Start-Process -FilePath "$WorkDir\MSIAfterburnerSetup464Beta3.exe" -ArgumentList "-i","-h" -NoNewWindow -Wait 
 }

@@ -54,10 +54,12 @@ if($Video) {
   $Shortcut.Arguments = "-Command `"Set-ExecutionPolicy Unrestricted; & '$PSScriptRoot\...\starthere.ps1'`" -RebootSkip"
   $Shortcut.Save()
   GetFile "https://raw.githubusercontent.com/parsec-cloud/Cloud-GPU-Updater/master/GPUUpdaterTool.ps1" "$PSScriptRoot\GPUUpdaterTool.ps1" "Cloud GPU Updater" 
-  $script = "-Command `"Set-ExecutionPolicy Unrestricted; & '$PSScriptRoot\..\Setup.ps1'`" -RebootSkip";
+  $script = "-Command `"Set-ExecutionPolicy Unrestricted; & '$PSScriptRoot\..\starthere.ps1'`" -RebootSkip";
   $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $script
   $trigger = New-ScheduledTaskTrigger -AtLogon -RandomDelay "00:00:30"
   $principal = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators" -RunLevel Highest
   Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "Continue" -Description "Openstream continue setup" | Out-Null
   & $PSScriptRoot\GPUUpdaterTool.ps1
+  Stop-Transcript
+  Pause
 }

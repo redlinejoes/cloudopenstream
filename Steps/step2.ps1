@@ -1,6 +1,16 @@
 $osType = Get-CimInstance -ClassName Win32_OperatingSystem
 
 $path = [Environment]::GetFolderPath("Desktop")
+Function GetFile([string]$Url, [string]$Path, [string]$Name) {
+    try {
+        if(![System.IO.File]::Exists($Path)) {
+	        Write-Host "Downloading `"$Name`"..."
+	        Start-BitsTransfer $Url $Path
+        }
+    } catch {
+        throw "`"$Name`" download failed."
+    }
+}
 
 if($osType.ProductType -eq 3) {
     Write-Host "Installing Wireless Networking..."
@@ -10,7 +20,8 @@ if($osType.ProductType -eq 3) {
 Write-Host ""
 if($osType.ProductType -eq 3) {
     Write-Host "Installing Quality Windows Audio/Video Experience"
-    Install-WindowsFeature -Name QWAVE | Out-Null
+    Install-WindowsFeature -Name QWAVE | Out-Null 
+}
 
 Write-Host ""
 if($osType.ProductType -eq 3) {
@@ -51,10 +62,11 @@ Write-Host "Applying general fixes..."
 Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
 Enable-MMAgent -MemoryCompression
 New-ItemProperty "hklm:\SYSTEM\CurrentControlSet\Control" -Name "ServicesPipeTimeout" -Value 600000 -PropertyType "DWord" | Out-Null
-Set-Service -Name Audiosrv -StartupType Automatic | Out-Null }
+Set-Service -Name Audiosrv -StartupType Automatic | Out-Null
 
 Write-Host ""
 if($osType.ProductType -eq 3) {
     Write-Host "Adding a Open-stream rules to the Windows Firewall..."
     New-NetFirewallRule -DisplayName "Moonlight TCP" -Direction inbound -LocalPort 47984,47989,48010 -Protocol TCP -Action Allow | Out-Null
-    New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction inbound -LocalPort 47998,47999,48000,48010 -Protocol UDP -Action Allow | Out-Null }
+    New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction inbound -LocalPort 47998,47999,48000,48010 -Protocol UDP -Action Allow | Out-Null 
+}
