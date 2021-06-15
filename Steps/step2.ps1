@@ -1,5 +1,13 @@
 $osType = Get-CimInstance -ClassName Win32_OperatingSystem
 
+Write-Host "Applying general fixes..."
+Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
+Enable-MMAgent -MemoryCompression | Out-Null
+New-ItemProperty "hklm:\SYSTEM\CurrentControlSet\Control" -Name "ServicesPipeTimeout" -Value 600000 -PropertyType "DWord" | Out-Null
+Set-Service -Name Audiosrv -StartupType Automatic | Out-Null
+New-NetFirewallRule -DisplayName "Moonlight TCP" -Direction Inbound -LocalPort 47984,47989,48010 -Protocol TCP -Action Allow | Out-Null
+New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction Inbound -LocalPort 47998,47999,48000,48010 -Protocol UDP -Action Allow | Out-Null
+
 $path = [Environment]::GetFolderPath("Desktop")
 Function GetFile([string]$Url, [string]$Path, [string]$Name) {
     try {
@@ -12,6 +20,7 @@ Function GetFile([string]$Url, [string]$Path, [string]$Name) {
     }
 }
 
+Write-Host ""
 if($osType.ProductType -eq 3) {
     Write-Host "Installing Wireless Networking..."
     Install-WindowsFeature -Name Wireless-Networking | Out-Null
@@ -37,9 +46,9 @@ if($osType.ProductType -eq 3) {
 
     Write-Host ""
     $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
-    Set-TimeZone –Name “$timezone” 
+    Set-TimeZone –Name "$timezone"
 
-    $ChangeWallpaper = (Read-Host 'Would you like to change the wallpaper to the Windows 10 one?').ToLower() -eq "y" 
+    $ChangeWallpaper = (Read-Host 'Would you like to change the wallpaper to the Windows 10 one?(y/n)').ToLower() -eq "y" 
 
     if($ChangeWallpaper) {
         GetFile "https://cloudopenstream.s3.us-west-2.amazonaws.com/img0_3840x2160.png" "$path\wallpaper.png" "Wallpaper"
@@ -58,15 +67,10 @@ if($osType.ProductType -eq 3) {
         Stop-Process -ProcessName Explorer
     }
 
-Write-Host "Applying general fixes..."
-Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
-Enable-MMAgent -MemoryCompression
-New-ItemProperty "hklm:\SYSTEM\CurrentControlSet\Control" -Name "ServicesPipeTimeout" -Value 600000 -PropertyType "DWord" | Out-Null
-Set-Service -Name Audiosrv -StartupType Automatic | Out-Null
-
-Write-Host ""
-if($osType.ProductType -eq 3) {
-    Write-Host "Adding a Open-stream rules to the Windows Firewall..."
+    Write-Host "Applying general fixes..."
+    Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
+    Enable-MMAgent -MemoryCompression | Out-Null
+    New-ItemProperty "hklm:\SYSTEM\CurrentControlSet\Control" -Name "ServicesPipeTimeout" -Value 600000 -PropertyType "DWord" | Out-Null
+    Set-Service -Name Audiosrv -StartupType Automatic | Out-Null
     New-NetFirewallRule -DisplayName "Moonlight TCP" -Direction inbound -LocalPort 47984,47989,48010 -Protocol TCP -Action Allow | Out-Null
-    New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction inbound -LocalPort 47998,47999,48000,48010 -Protocol UDP -Action Allow | Out-Null 
-}
+    New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction inbound -LocalPort 47998,47999,48000,48010 -Protocol UDP -Action Allow | Out-Null
