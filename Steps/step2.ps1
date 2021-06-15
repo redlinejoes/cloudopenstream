@@ -7,6 +7,16 @@ New-ItemProperty "hklm:\SYSTEM\CurrentControlSet\Control" -Name "ServicesPipeTim
 Set-Service -Name Audiosrv -StartupType Automatic | Out-Null
 New-NetFirewallRule -DisplayName "Moonlight TCP" -Direction Inbound -LocalPort 47984,47989,48010 -Protocol TCP -Action Allow | Out-Null
 New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction Inbound -LocalPort 47998,47999,48000,48010 -Protocol UDP -Action Allow | Out-Null
+Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask | Out-Null
+New-Itemproperty -path hklm:\SYSTEM\CurrentControlSet\Control\Network -name "NewNetworkWindowOff" | Out-Null
+
+Write-Host ""
+Write-Host "Disabling start menu logout"
+function disablelogout {
+    Set-ItemProperty -Path hklm:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null 
+} else {
+    New-ItemProperty -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null 
+}
 
 $path = [Environment]::GetFolderPath("Desktop")
 Function GetFile([string]$Url, [string]$Path, [string]$Name) {
@@ -66,11 +76,3 @@ if($osType.ProductType -eq 3) {
         New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name WallpaperStyle -PropertyType String -value 2 | Out-Null
         Stop-Process -ProcessName Explorer
     }
-
-    Write-Host "Applying general fixes..."
-    Set-Itemproperty -Path 'HKCU:\Control Panel\Mouse' -Name MouseSpeed -Value 1 | Out-Null
-    Enable-MMAgent -MemoryCompression | Out-Null
-    New-ItemProperty "hklm:\SYSTEM\CurrentControlSet\Control" -Name "ServicesPipeTimeout" -Value 600000 -PropertyType "DWord" | Out-Null
-    Set-Service -Name Audiosrv -StartupType Automatic | Out-Null
-    New-NetFirewallRule -DisplayName "Moonlight TCP" -Direction inbound -LocalPort 47984,47989,48010 -Protocol TCP -Action Allow | Out-Null
-    New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction inbound -LocalPort 47998,47999,48000,48010 -Protocol UDP -Action Allow | Out-Null
