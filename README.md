@@ -1,5 +1,5 @@
 # What is this?
-This is a series of PowerShell scripts inspried by accleration3's "cloudgamestream" and Parsec's Cloud Preperation Tool. This combines the best of both scripts. It allows you to use Moonlight on your cloud server, that may not be compatible with Gamestream, and sets up your Windows Server for gaming. All of this without activating old Windows features like Direct Play or changing wallpapers. It automatically installs Open-stream, Firefox, VBCable, Razer Surround, and uses Parsec's excellent GPU updater. Afterward, you can choose to install Steam and/or Playnite.
+This is a series of PowerShell scripts inspried by accleration3's "cloudgamestream" and Parsec's Cloud Preperation Tool. This combines the best of both scripts. It allows you to use Moonlight on your cloud server, that may not be compatible with Gamestream, and sets up your Windows Server for gaming. All of this without activating old Windows features like Direct Play or changing wallpapers. It automatically installs Open-stream, Firefox, VBCable, and downloads Parsec's excellent GPU updater. Afterward, you can choose to install Steam and/or Playnite.
 
 ### What is Open-stream?
 Open-stream is a remote desktop like application that allows users of the popular Moonlight application to use the desktop instead of their library of games. 
@@ -40,11 +40,6 @@ If your server type is not here, just choose "n" when asked about the GPU update
 ### What would this be useful for, doesn't `xyz` already work well?
 Even though NiceDCV works very well, you're limited to the web browser, or a desktop enviroment (Windows, Mac, Linux). Forget running on a phone or a Raspberry PI. For Parsec, although it does work well, there is video compression that lots of people notice. There are also times where Parsec will suddenly freeze up. For example, you can take a look at TechGuru's video here: https://youtu.be/WUrlguuY5UU?t=378
 
-However, these apps work exceptionally well at there job which is why they are an option in this script and even though Moonlight works REALLY well, it's not perfect. You'll just have a much better experience in many people's opinon. 
-
-For example, take a look at what Acceleration3 (the creator of the cloudgamestream says)
-https://www.reddit.com/r/cloudygamer/comments/i3pkpu/guide_enabling_nvidia_gamestream_on_a_cloud/
-
 # How to start the script
 With this modified version of Parsec's tool command, you can start this script directly in Powershell: 
 ```
@@ -55,6 +50,6 @@ $ArchivePath = "$ENV:UserProfile\Downloads\cloudopenstream"
 Expand-Archive "$ArchivePath.zip" -DestinationPath $ArchivePath -Force
 ```
 
-Then go to downloads and click "starthere.ps1"
+Then go to downloads, open the cloudopenstream folder and right "starthere.ps1", which will allow you to open in PowerShell. 
 
 Open-stream, Accleration3, or pretty much anything/one in this script or referenced is not related to the script. This is just a friendly way to get cloud gaming with Open-stream, which is an amazing project I've poured hours into using. If your `insert thing here` is included in the script, but you don't want it to be, I can remove it. Your `insert thing here` will be removed when the next version is released. 
