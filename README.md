@@ -1,5 +1,5 @@
 # What is this?
-This is a series of PowerShell scripts inspried by accleration3's "cloudgamestream" and Parsec's Cloud Preperation Tool. This combines the best of both scripts. It allows you to use Moonlight on your cloud server, that may not be compatible with Gamestream, and sets up your Windows Server for gaming. All of this without activating old Windows features like Direct Play or changing wallpapers. It automatically installs Open-stream, Firefox, VBCable, and downloads Parsec's excellent GPU updater. Afterward, you can choose to install Steam and/or Playnite.
+This is a series of PowerShell scripts inspried by accleration3's "cloudgamestream" and Parsec's Cloud Preperation Tool. This combines the best of both scripts. It allows you to use Moonlight on your cloud server, that may not be compatible with Gamestream, and sets up your Windows Server for gaming. All of this without activating old Windows features like Direct Play or changing wallpapers. It automatically installs Open-stream, Google Chrome, VBCable, and downloads Parsec's excellent GPU updater. Afterward, you can choose to install Steam and/or Playnite.
 
 ### What is Open-stream?
 Open-stream is a remote desktop like application that allows users of the popular Moonlight application to use the desktop instead of their library of games. 
