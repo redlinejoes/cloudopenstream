@@ -33,7 +33,7 @@ else {
 $InstallPlaynite = (Read-Host "Would you like to download and install Playnite? (y/n)").ToLower() -eq "y"
 
 if($InstallPlaynite) {
-    WriteHost ""
+    Write-Host ""
     GetFile "https://github.com/JosefNemec/Playnite/releases/download/8.11/Playnite811.exe" "$WorkDir\Playnite.exe" "Playnite"
     Write-Host "Installing Playnite..."
     Start-Process -FilePath "$WorkDir\Playnite.exe" -ArgumentList "-s" -NoNewWindow -Wait -Passthru
