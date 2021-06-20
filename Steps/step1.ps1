@@ -45,7 +45,7 @@ GetFile "https://cloudopenstream.s3-us-west-2.amazonaws.com/installer_05_28.exe"
 Write-Host "Installing Open-stream..."
 Start-Process -FilePath "$WorkDir\openstream.exe"
 
-$Video = (Read-Host "This script will also install the Parsec GPU Updater tool, unless you already have drivers, please type y (y/n)").ToLower() -eq "y"
+$Video = (Read-Host "Now it's time for GPU drivers, unless you already have drivers, please use the tool (y/n)").ToLower() -eq "y"
 
 if($Video) {
   $Shell = New-Object -comObject WScript.Shell
@@ -59,6 +59,7 @@ if($Video) {
   $trigger = New-ScheduledTaskTrigger -AtLogon -RandomDelay "00:00:30"
   $principal = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators" -RunLevel Highest
   Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "Continue" -Description "Openstream continue setup" | Out-Null
+  Write-Host "Please restart the server when Parsec asks, the script will start back up upon login" -ForegroundColor Red
   & $PSScriptRoot\GPUUpdaterTool.ps1
   Stop-Transcript
   Pause
