@@ -22,7 +22,7 @@ if($InstallSteam) {
     Write-Host ""
     GetFile "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe" "$WorkDir\SteamSetup.exe" "Steam"
     Write-Host "Installing Steam..."
-    Start-Process -FilePath "$WorkDir\SteamSetup.exe" -ArgumentList "-s" -NoNewWindow -Wait -Passthru
+    Start-Process -FilePath "$WorkDir\SteamSetup.exe" -ArgumentList "/S" -NoNewWindow -Wait -Passthru
 }
 else {
     Write-Host ""
