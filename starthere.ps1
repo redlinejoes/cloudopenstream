@@ -44,11 +44,11 @@ Write-Host "Welcome back, let's continue with step two."
     Write-Host "Step 3 - Installing applications" -ForegroundColor Yellow
     & $PSScriptRoot\Steps\step3.ps1
 	
-	$ip = Invoke-RestMethod http://ipinfo.io/json
+	$ip = (Invoke-WebRequest ifconfig.me/ip).Content
 	Write-Host "Using the official AWS guide? Skip the steps below" -ForegroundColor Yellow  
 	Write-Host "Finished! Now you need to head to your desktop and start Open-stream" -ForegroundColor Green
 	Write-Host "Grab your favorite device and install Moonlight on it" -ForegroundColor Green  
-	Write-Host "Your IP address is $ip.ip" -ForegroundColor Red
+	Write-Host "Your IP address is $ip" -ForegroundColor Red
 	Write-Host "Type in the IP address inside of Moonlight" -ForegroundColor Green
 	Write-Host "Come back to the RDP session and enter the code inside of Open-stream" -ForegroundColor Green
 	
