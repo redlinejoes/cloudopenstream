@@ -56,7 +56,7 @@ if($osType.ProductType -eq 3) {
 
     Write-Host ""
     $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
-    Set-TimeZone –Name "$timezone"
+    Set-TimeZone -Name "$timezone"
 
     $ChangeWallpaper = (Read-Host 'Would you like to change the wallpaper to the Windows 10 one?(y/n)').ToLower() -eq "y" 
 
