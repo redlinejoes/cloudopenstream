@@ -10,7 +10,7 @@ New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction Inbound -LocalPort 4
 Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask | Out-Null
 New-Itemproperty -path hklm:\SYSTEM\CurrentControlSet\Control\Network -name "NewNetworkWindowOff" | Out-Null
 
-$path = [Environment]::GetFolderPath("Desktop")
+$path = [Environment]::GetFolderPath("MyPictures")
 Function GetFile([string]$Url, [string]$Path, [string]$Name) {
     try {
         if(![System.IO.File]::Exists($Path)) {
@@ -50,6 +50,7 @@ if($osType.ProductType -eq 3) {
     $timezone = Read-Host -Prompt 'What is your time zone? (example: Pacific Standard Time)'
     Set-TimeZone -Name "$timezone"
 
+    Write-Host ""	
     $ChangeWallpaper = (Read-Host 'Would you like to change the wallpaper to the Windows 10 one?(y/n)').ToLower() -eq "y" 
 
     if($ChangeWallpaper) {
@@ -58,11 +59,12 @@ if($osType.ProductType -eq 3) {
         Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name Wallpaper -value "$path\wallpaper.png" | Out-Null
     }
     else {
-        New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name Wallpaper -PropertyType String -value "C:\Users\Administrator\Desktop\wallpaper.png" | Out-Null
+        New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name Wallpaper -PropertyType String -value "C:\Users\Administrator\Pictures\wallpaper.png" | Out-Null
     }
     
     if($ChangeWallpaper) {
         Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name WallpaperStyle -value 2 | Out-Null
+	Stop-Process -ProcessName Explorer
     }
     else {
         New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name WallpaperStyle -PropertyType String -value 2 | Out-Null
