@@ -10,14 +10,6 @@ New-NetFirewallRule -DisplayName "Moonlight UDP" -Direction Inbound -LocalPort 4
 Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask | Out-Null
 New-Itemproperty -path hklm:\SYSTEM\CurrentControlSet\Control\Network -name "NewNetworkWindowOff" | Out-Null
 
-Write-Host ""
-Write-Host "Disabling start menu logout"
-function disablelogout {
-    Set-ItemProperty -Path hklm:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null 
-} else {
-    New-ItemProperty -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -Name StartMenuLogOff -Value 1 | Out-Null 
-}
-
 $path = [Environment]::GetFolderPath("Desktop")
 Function GetFile([string]$Url, [string]$Path, [string]$Name) {
     try {
