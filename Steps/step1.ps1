@@ -33,9 +33,11 @@ else {
     throw "Installation failed (Error: $ExitCode)."
 }
  
-GetFile "https://dl.google.com/tag/s/appguid/chrome/install/ChromeStandaloneSetup64.exe" "$WorkDir\chrome.exe" "Google Chrome" 
+GetFile "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi" "$WorkDir\chrome.msi" "Google Chrome" 
 Write-Host "Installing Chrome..."
-Start-Process -FilePath "$WorkDir\chrome.exe" -NoNewWindow -Wait -Passthru
+$path = [Environment]::GetFolderPath("Desktop")
+New-Item -Path $path\ChromeTemp -ItemType directory | Out-Null
+Start-Process -FilePath "msiexec.exe" -Wait -ArgumentList '/qn /i C:\Users\Administrator\Desktop\ChromeTemp\chrome.msi'
  
 GetFile "https://cloudopenstream.s3-us-west-2.amazonaws.com/installer_05_28.exe" "$WorkDir\openstream.exe" "Open-stream" 
 Write-Host "Installing Open-stream..."
