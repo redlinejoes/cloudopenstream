@@ -33,7 +33,7 @@ if(!$RebootSkip) {
 if(Get-ScheduledTask | Where-Object {$_.TaskName -like "Continue" }) {
   Unregister-ScheduledTask -TaskName "Continue" -Confirm:$false
 }
-Write-Host "The script will now continue from where it left off."
+Write-Host "Welcome back, let's continue with step two."
 }
 	
     Write-Host ""
@@ -43,10 +43,16 @@ Write-Host "The script will now continue from where it left off."
     Write-Host ""
     Write-Host "Step 3 - Installing applications" -ForegroundColor Yellow
     & $PSScriptRoot\Steps\step3.ps1
-
-    Write-Host "Finished, if you're using a guide, continue along! If not, make sure to set a static IP and pair your device with the server" -ForegroundColor Green
-
-    $restart = (Read-Host "Would you like to restart now? (y/n)").ToLower();
+	
+	$ip = Invoke-RestMethod http://ipinfo.io/json
+	Write-Host "Using the official AWS guide? Skip the steps below" -ForegroundColor Yellow  
+	Write-Host "Finished! Now you need to head to your desktop and start Open-stream" -ForegroundColor Green
+	Write-Host "Grab your favorite device and install Moonlight on it" -ForegroundColor Green  
+	Write-Host "Your IP address is $ip.ip" -ForegroundColor Red
+	Write-Host "Type in the IP address inside of Moonlight" -ForegroundColor Green
+	Write-Host "Come back to the RDP session and enter the code inside of Open-stream" -ForegroundColor Green
+	
+    $restart = (Read-Host "Thanks for using the script, would you like to restart now? (y/n)").ToLower();
     if($restart -eq "y") {
     Restart-Computer -Force 
 }
