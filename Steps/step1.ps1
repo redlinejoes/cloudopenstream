@@ -33,9 +33,9 @@ else {
     throw "Installation failed (Error: $ExitCode)."
 }
 
-GetFile "https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US" "$WorkDir\firefox.exe" "Firefox" 
-Write-Host "Installing Firefox, make it your default browser!"
-$ExitCode = (Start-Process -FilePath "$WorkDir\firefox.exe" -ArgumentList "-s" -NoNewWindow -Wait -Passthru).ExitCode
+GetFile "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi" "$WorkDir\chrome.msi" "Google Chrome" 
+Write-Host "Installing Chrome..."
+$ExitCode = (Start-Process -FilePath "C:\Windows\System32\msiexec.exe" -ArgumentList '/qn /i "$WorkDir\chrome.msi"' -NoNewWindow -Wait -Passthru).ExitCode
 if($ExitCode -eq 0) { Write-Host "Installed." -ForegroundColor Green }
 else { 
     throw "Installation failed (Error: $ExitCode)."
