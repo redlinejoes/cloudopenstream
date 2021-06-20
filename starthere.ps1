@@ -43,7 +43,12 @@ Write-Host "Welcome back, let's continue with step two."
     Write-Host ""
     Write-Host "Step 3 - Installing applications" -ForegroundColor Yellow
     & $PSScriptRoot\Steps\step3.ps1
-	
+    
+    Write-Host "Cleaning up temp folder..."
+    $path = [Environment]::GetFolderPath("Desktop")	
+    Remove-Item -Path $path\ChromeTemp -force -Recurse
+    	
+	Write-Host ""
 	$ip = (Invoke-WebRequest ifconfig.me/ip).Content
 	Write-Host "Using the official AWS guide? Skip the steps below" -ForegroundColor Yellow  
 	Write-Host "Finished! Now you need to head to your desktop and start Open-stream" -ForegroundColor Green
