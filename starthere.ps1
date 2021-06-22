@@ -57,7 +57,7 @@ Write-Host "Welcome back, let's continue with step two."
 	Write-Host "Type in the IP address inside of Moonlight" -ForegroundColor Green
 	Write-Host "Come back to the RDP session and enter the code inside of Open-stream" -ForegroundColor Green
 	
-    $restart = (Read-Host "Thanks for using the script, would you like to restart now? (y/n)").ToLower();
+    $restart = (Read-Host "You'll have to fully restart the server for everything to take effect, restart now? (y/n)").ToLower();
     if($restart -eq "y") {
     Restart-Computer -Force 
 }
